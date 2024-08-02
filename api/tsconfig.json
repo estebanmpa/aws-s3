@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "outDir": "dist",
+        "sourceMap": true
+    },
+    "include": [
+        "src/**/*.ts"
+, "src/modules/file/application/user-cases/upload-object.use-case.ts"    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
