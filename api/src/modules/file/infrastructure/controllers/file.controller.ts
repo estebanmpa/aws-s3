@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction, Router } from "express";
-import { GetObjectList, GetObjectById, UploadObject } from "../../application/user-cases";
+import { GetObjectList, GetObjectById, UploadObject } from "../../application/user-cases"
 
 export default class FileController {
   public path = '/product';
