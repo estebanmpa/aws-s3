@@ -1,14 +1,22 @@
 {
     "compilerOptions": {
-        "target": "es6",
+        "removeComments": true,
+        "resolveJsonModule": true,
         "module": "commonjs",
+        "esModuleInterop": true,
+        "target": "es2017",
+        "noImplicitAny": true,
+        "moduleResolution": "node",
+        "sourceMap": true,
         "outDir": "dist",
-        "sourceMap": true
+        "baseUrl": ".",
+        "paths": {
+            "*": [
+                "node_modules/*"
+            ]
+        },
     },
     "include": [
-        "src/**/*.ts"
-, "src/modules/file/application/user-cases/upload-object.use-case.ts"    ],
-    "exclude": [
-        "node_modules"
+        "src/**/*"
     ]
 }
