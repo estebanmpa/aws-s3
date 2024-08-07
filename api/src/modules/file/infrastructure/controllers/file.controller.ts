@@ -1,28 +1,44 @@
-import { Request, Response, NextFunction, Router } from "express";
-import { GetObjectList, GetObjectById, UploadObject } from "../../application/user-cases"
+import { Request, Response, NextFunction } from "express";
+import { GetObjectList, GetObjectById, UploadObject } from "../../application/use-cases";
+import { AbstractController } from "../../../../common/interfaces/controler.interface";
+import { ControllerRoute } from "../../../../common/types/route.type";
 
-export default class FileController {
-  public path = '/product';
-  public router = Router();
-  private _getObjectList: GetObjectList;
-  private _getObjectById: GetObjectById;
-  private _uploadObject: UploadObject;
 
-  constructor() {
-    this._getObjectList = new GetObjectList();
-    this._getObjectById = new GetObjectById();
-    this._uploadObject = new UploadObject();
+export default class FileController implements AbstractController {
+  public path = '/file';
+  public _getObjectList = new GetObjectList();
+  private _getObjectById = new GetObjectById();
+  private _uploadObject = new UploadObject();
+
+  routes(): ControllerRoute[] {
+    return [
+      { method: "get", func: this.getObjectList, path: this.path },
+      { method: "get", func: this.getObjectById, path: `${this.path}/:id` },
+      { method: "post", func: this.uploadObject, path: this.path }
+    ]
   }
 
-  async getObjectList(request: Request, response: Response, next: NextFunction): Promise<any[]> {
-    return this._getObjectList.handle();
+  getObjectList = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      response.send(await this._getObjectList.handle());
+    } catch (error) {
+      next(error)
+    }
   }
 
-  async getObjectById(request: Request, response: Response, next: NextFunction): Promise<any[]> {
-    return this._getObjectById.handle(0);
+  getObjectById = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      response.send(await this._getObjectById.handle(""));
+    } catch (error) {
+      next(error)
+    }
   }
 
-  async uploadObject(request: Request, response: Response, next: NextFunction): Promise<any[]> {
-    return this._uploadObject.handle();
+  uploadObject = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      response.send(await this._uploadObject.handle());
+    } catch (error) {
+      next(error)
+    }
   }
 }
