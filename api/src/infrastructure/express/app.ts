@@ -1,11 +1,11 @@
 import express, { Express, Router } from "express";
-import FileController from "../../modules/file/infrastructure/controllers/file.controller";
+import { FileControllerFactory } from "../../modules/file/infrastructure/factories/file-controller.factory";
 
 abstract class AbstractApp {
   abstract create(): Express;
 }
 
-export default class App implements AbstractApp {
+export class App implements AbstractApp {
   private app: Express;
   private router: Router = express.Router();
 
@@ -13,14 +13,14 @@ export default class App implements AbstractApp {
     this.app = express();
   }
 
-  create(): Express {
+  create = (): Express => {
     this.initControllers();
 
     return this.app;
   }
 
-  private initControllers() {
-    const controllers = [new FileController()];
+  private initControllers = () => {
+    const controllers = [new FileControllerFactory().createObject()];
 
     controllers.forEach(c => {
       c.routes().forEach(r => {

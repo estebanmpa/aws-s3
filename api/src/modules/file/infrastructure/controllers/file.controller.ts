@@ -1,16 +1,21 @@
 import { Request, Response, NextFunction } from "express";
-import { GetObjectList, GetObjectById, UploadObject } from "../../application/use-cases";
 import { AbstractController } from "../../../../common/interfaces/controler.interface";
 import { ControllerRoute } from "../../../../common/types/route.type";
+import { GetObjectListUseCase } from "../../domain/use-cases/get-object-list.use-case";
+import { GetObjectByIdUseCase } from "../../domain/use-cases/get-object-by-id.use-case";
+import { UploadObjectUseCase } from "../../domain/use-cases/upload-object.use-case";
 
 
-export default class FileController implements AbstractController {
-  public path = '/file';
-  public _getObjectList = new GetObjectList();
-  private _getObjectById = new GetObjectById();
-  private _uploadObject = new UploadObject();
+export class FileController implements AbstractController {
+  private path = '/file';
 
-  routes(): ControllerRoute[] {
+  constructor(
+    private readonly getObjectListUseCase: GetObjectListUseCase,
+    private readonly getObjectByIdUseCase: GetObjectByIdUseCase,
+    private readonly uploadObjectUseCase: UploadObjectUseCase
+  ) { }
+
+  routes = (): ControllerRoute[] => {
     return [
       { method: "get", func: this.getObjectList, path: this.path },
       { method: "get", func: this.getObjectById, path: `${this.path}/:id` },
@@ -20,7 +25,7 @@ export default class FileController implements AbstractController {
 
   getObjectList = async (request: Request, response: Response, next: NextFunction) => {
     try {
-      response.send(await this._getObjectList.handle());
+      response.send(await this.getObjectListUseCase.handle());
     } catch (error) {
       next(error)
     }
@@ -28,7 +33,7 @@ export default class FileController implements AbstractController {
 
   getObjectById = async (request: Request, response: Response, next: NextFunction) => {
     try {
-      response.send(await this._getObjectById.handle(""));
+      response.send(await this.getObjectByIdUseCase.handle(""));
     } catch (error) {
       next(error)
     }
@@ -36,7 +41,7 @@ export default class FileController implements AbstractController {
 
   uploadObject = async (request: Request, response: Response, next: NextFunction) => {
     try {
-      response.send(await this._uploadObject.handle());
+      response.send(await this.uploadObjectUseCase.handle());
     } catch (error) {
       next(error)
     }

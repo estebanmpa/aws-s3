@@ -12,6 +12,7 @@
   "author": "Esteban Mariano Piga Alessi",
   "license": "UNLICENSED",
   "dependencies": {
+    "aws-sdk": "^2.1670.0",
     "express": "^4.19.2",
     "typescript": "^5.5.4"
   },

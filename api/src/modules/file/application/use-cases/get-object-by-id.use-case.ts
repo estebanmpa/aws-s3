@@ -1,9 +1,8 @@
-abstract class GetObjectByIdUseCase {
-  abstract handle(id: string): Promise<any>;
-}
+import { GetObjectByIdUseCase } from "../../domain/use-cases/get-object-by-id.use-case";
+
 
 export class GetObjectById implements GetObjectByIdUseCase {
-  public async handle(id: string): Promise<any> {
+  public handle = async (id: string): Promise<any> => {
     return;
   }
 }

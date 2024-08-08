@@ -1,10 +1,7 @@
-abstract class UploadObjectUseCase {
-    abstract handle(): Promise<any>;
+import { UploadObjectUseCase } from "../../domain/use-cases/upload-object.use-case";
+
+export class UploadObject implements UploadObjectUseCase {
+  public handle = async (): Promise<any> => {
+    return;
   }
-  
-  export class UploadObject implements UploadObjectUseCase {
-    public async handle(): Promise<any> {
-      return;
-    }
-  }
-  
+}
