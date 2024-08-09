@@ -41,7 +41,7 @@ export class FileController implements AbstractController {
 
   uploadObject = async (request: Request, response: Response, next: NextFunction) => {
     try {
-      response.send(await this.uploadObjectUseCase.handle());
+      response.send(await this.uploadObjectUseCase.handle({}));
     } catch (error) {
       next(error)
     }

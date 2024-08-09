@@ -1,3 +1,3 @@
 export abstract class UploadObjectUseCase {
-  abstract handle(): Promise<any>;
+  abstract handle(data: any): Promise<void>;
 }

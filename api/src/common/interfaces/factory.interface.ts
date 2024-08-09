@@ -1,3 +1,3 @@
-export default abstract class AbstractFactory<T> {
+export abstract class AbstractFactory<T> {
     abstract createObject(): T;
 }
